@@ -28,16 +28,17 @@ const images = [
 
 const galleryList = document.querySelector('.gallery');
 
-images.forEach(({ url, alt }) => {
-  const listItem = document.createElement('li');
-  listItem.classList.add('gallery-item');
-  const images = document.createElement('img');
-  images.src = url;
-  images.alt = alt;
-  images.classList.add('gallery-image');
-  listItem.append(images);
-  galleryList.append(listItem);
-});
+const galleryItems = images
+  .map(
+    ({ url, alt }) => `
+    <li class="gallery-item" style="width: calc((1128px - 40px) / 3);">
+      <img src="${url}" alt="${alt}" class="gallery-image" style="width: 100%; height: 300px; object-fit: cover;">
+    </li>
+  `
+  )
+  .join('');
+
+galleryList.innerHTML = galleryItems;
 
 galleryList.style.display = 'flex';
 galleryList.style.flexWrap = 'wrap';
@@ -45,15 +46,3 @@ galleryList.style.gap = '20px';
 galleryList.style.justifyContent = 'space-between';
 galleryList.style.width = '1128px';
 galleryList.style.margin = '0 auto';
-
-const galleryItem = document.querySelectorAll('.gallery-item');
-galleryItem.forEach(item => {
-  item.style.width = 'calc((1128px - 40px) / 3)';
-});
-
-const galleryImages = document.querySelectorAll('.gallery-image');
-galleryImages.forEach(img => {
-  img.style.width = '100%';
-  img.style.height = '300px';
-  img.style.objectFit = 'cover';
-});
